@@ -1,0 +1,6 @@
+{
+  "name": "Radiation Dose & Safety Dashboard",
+  "description": "แผงควบคุมและเครื่องคำนวณปริมาณรังสีทางการแพทย์เพื่อความปลอดภัยของผู้ป่วยตามหลัก ALARA",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
