@@ -10,8 +10,8 @@ export const EXAM_PRESETS: ExamPreset[] = [
     id: 'chest_pa',
     nameTh: 'เอกซเรย์ปอด (Chest PA)',
     nameEn: 'Chest PA',
-    defaultKv: 110,
-    defaultMAs: 3.2,
+    defaultKv: 80,
+    defaultMAs: 5,
     defaultSsd: 180, // mAs is low, distance is far (180 cm) to reduce magnification
     drlEsd: 0.35, // mGy
     drlEffective: 0.05, // mSv

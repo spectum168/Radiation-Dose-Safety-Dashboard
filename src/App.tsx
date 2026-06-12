@@ -10,7 +10,8 @@ import {
   Database, 
   Sparkles, 
   Lock, 
-  HeartHandshake
+  HeartHandshake,
+  FileText
 } from 'lucide-react';
 
 import { DoseRecord, RadiographerPosition } from './types';
@@ -29,6 +30,7 @@ import PatientForm, { RadiologicalParameters } from './components/PatientForm';
 import DoseHistory from './components/DoseHistory';
 import AdminAudit from './components/AdminAudit';
 import ReportModal from './components/ReportModal';
+import DrlReportModal from './components/DrlReportModal';
 
 // Dummy initial clinical records for realistic dashboard loading
 const DUMMY_RECORDS: DoseRecord[] = [
@@ -189,6 +191,7 @@ export default function App() {
   // States for previewing/downloading specific records
   const [selectedReportRecord, setSelectedReportRecord] = useState<DoseRecord | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDrlReportOpen, setIsDrlReportOpen] = useState<boolean>(false);
 
   // Track Real-time changes and run medical formulas live (No infinite loops)
   useEffect(() => {
@@ -315,7 +318,7 @@ export default function App() {
           </div>
 
           {/* Central Navigation Tabs */}
-          <nav className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl border border-stone-200/60 shadow-inner">
+          <nav className="flex flex-wrap items-center gap-1 bg-stone-100 p-1 rounded-xl border border-stone-200/60 shadow-inner">
             <button
               onClick={() => setActiveTab('calculator')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-all duration-300 flex items-center gap-1.5 ${
@@ -350,6 +353,14 @@ export default function App() {
             >
               <Lock className="w-3 h-3.5" />
               <span>แผงควบคุมตรวจสอบ (Auditor)</span>
+            </button>
+
+            <button
+              onClick={() => setIsDrlReportOpen(true)}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-all duration-300 flex items-center gap-1.5 text-cyan-750 bg-cyan-50/80 hover:bg-cyan-100 border border-cyan-200/50 shadow-sm hover:text-cyan-800"
+            >
+              <FileText className="w-3.5 h-3.5 text-cyan-600" />
+              <span>ตารางประเมินรังสี (ESAK vs DRLs)</span>
             </button>
           </nav>
 
@@ -489,6 +500,12 @@ export default function App() {
           onClose={() => setSelectedReportRecord(null)}
         />
       )}
+
+      {/* DRL COMPARISON EVALUATION REPORT MODAL */}
+      <DrlReportModal
+        isOpen={isDrlReportOpen}
+        onClose={() => setIsDrlReportOpen(false)}
+      />
 
       {/* 5. GENTLE HUMAN FOOTER INFORMATION */}
       <footer className="border-t border-stone-200 mt-16 bg-white px-4 py-8 text-center text-[10px] text-slate-400 shadow-inner">
